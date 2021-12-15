@@ -8,6 +8,3 @@ class GameOver(Exception):
 class EnemyDown(Exception):
     pass
 
-
-class Exit(Exception):
-    pass

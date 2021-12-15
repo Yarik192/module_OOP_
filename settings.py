@@ -1,24 +1,5 @@
 """ALL CONSTANTS FOR GAME"""
 
-
-def rules():
-    print("""
-    +------------------------------------------------+
-    |                 RULES OF THE GAME              |
-    | To win, you need to guess which card the       |
-    | opponent will choose and choose the one that   |
-    | will defeat the opponent's card.               |
-    | Available cards: Warrior, Robber, Wizard.      |
-    |        The Wizard defeats the Warrior.         |
-    |        The Warrior defeats the Robber.         |
-    |        The Robber defeats the Wizard.          |
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    |                 Key 1 - Warrior                |
-    |                 Key 2 - Robber                 |
-    |                 Key 3 - Wizard                 |
-    +------------------------------------------------+""")
-
-
 LIVES = 5
 
 WARRIOR = 1
