@@ -17,8 +17,6 @@ class Enemy:
     def decrease_lives(self) -> None:
         self.lives -= 1
         if self.lives < 1:
-            pass
-        else:
             raise EnemyDown()
 
 
@@ -41,11 +39,10 @@ class Player:
             return 0
 
     def decrease_lives(self) -> None:
-        if self.lives > 0:
-            print(f"You have {self.lives} lives left\n")
-            self.lives -= 1
+        self.lives -= 1
+        print(f"You have {self.lives} lives left\n")
 
-        else:
+        if self.lives < 1:
             print(f"You scored: {self.score}")
             raise GameOver
 
@@ -70,7 +67,6 @@ class Player:
 
         if outcome == -1:
             print("You attacked successfully !\n")
-            enemy_obj.decrease_lives()
             self.score += 1
 
         elif outcome == 1:
@@ -79,6 +75,3 @@ class Player:
 
         else:
             print("It's a draw\n")
-
-
-
