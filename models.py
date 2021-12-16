@@ -15,9 +15,9 @@ class Enemy:
         return random.randint(1, 3)
 
     def decrease_lives(self) -> None:
-
-        if self.lives > 0:
-            self.lives -= 1
+        self.lives -= 1
+        if self.lives < 1:
+            pass
         else:
             raise EnemyDown()
 
@@ -53,63 +53,32 @@ class Player:
         choice_attack = int(input("Choose who you want to attack: "))
         outcome = self.fight(choice_attack, enemy_obj.select_attack())
 
-        if outcome == 0:
-            print("It's a draw\n")
+        if outcome == 1:
+            print("You attacked successfully !\n")
+            enemy_obj.decrease_lives()
+            self.score += 1
 
         elif outcome == -1:
             print("You missed\n")
 
-        elif outcome == 1:
-            print("You attacked successfully !\n")
-            enemy_obj.decrease_lives()
-            self.score += 1
+        else:
+            print("It's a draw\n")
 
     def defence(self, enemy_obj: Enemy) -> None:
         choice_attack = int(input("Choose who you want to protect: "))
         outcome = self.fight(enemy_obj.select_attack(), choice_attack)
 
-        if outcome == 0:
-            print("It's a draw\n")
+        if outcome == -1:
+            print("You attacked successfully !\n")
+            enemy_obj.decrease_lives()
+            self.score += 1
 
         elif outcome == 1:
             print("You missed\n")
             self.decrease_lives()
 
-        elif outcome == -1:
-            print("You attacked successfully !\n")
-            enemy_obj.decrease_lives()
-            self.score += 1
+        else:
+            print("It's a draw\n")
 
 
-def get_player_instance() -> Player:
-    user_name = check_name()
-    while True:
-        choice = input("Enter start for start the game: ")
-        if choice == "start":
-            rules()
-            return Player(user_name)
 
-
-def check_name():
-    while True:
-        user_name = input("Enter your name: ")
-        if len(user_name) > 2 and user_name.isalpha():
-            return user_name.capitalize()
-
-
-def rules():
-    print("""
-    +------------------------------------------------+
-    |                 RULES OF THE GAME              |
-    | To win, you need to guess which card the       |
-    | opponent will choose and choose the one that   |
-    | will defeat the opponent's card.               |
-    | Available cards: Warrior, Robber, Wizard.      |
-    |        The Wizard defeats the Warrior.         |
-    |        The Warrior defeats the Robber.         |
-    |        The Robber defeats the Wizard.          |
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    |                 Key 1 - Warrior                |
-    |                 Key 2 - Robber                 |
-    |                 Key 3 - Wizard                 |
-    +------------------------------------------------+""")
