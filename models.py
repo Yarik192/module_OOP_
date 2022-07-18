@@ -1,7 +1,7 @@
 """CLASS PLAYER AND ENEMY FOR GAME"""
 
 import random
-from settings import LIVES, exodus_1, exodus_2
+from settings import LIVES, exodus_1, exodus_2, ALLOWED_ATTACKS
 from exeptions import GameOver, EnemyDown
 
 
@@ -28,7 +28,7 @@ class Player:
         self.score = 0
 
     @staticmethod
-    def fight(attack, defence) -> int:
+    def fight(attack, defence) -> int or None:
         if attack - defence in exodus_1:
             return 1
 
@@ -48,6 +48,10 @@ class Player:
 
     def attack(self, enemy_obj: Enemy) -> None:
         choice_attack = int(input("Choose who you want to attack: "))
+        while choice_attack not in ALLOWED_ATTACKS:
+            print("Not allowed attack")
+            print("Try again")
+            choice_attack = int(input("Choose who you want to attack: "))
         outcome = self.fight(choice_attack, enemy_obj.select_attack())
 
         if outcome == 1:
@@ -63,6 +67,10 @@ class Player:
 
     def defence(self, enemy_obj: Enemy) -> None:
         choice_attack = int(input("Choose who you want to protect: "))
+        while choice_attack not in ALLOWED_ATTACKS:
+            print("Not allowed attack")
+            print("Try again")
+            choice_attack = int(input("Choose who you want to protect: "))
         outcome = self.fight(enemy_obj.select_attack(), choice_attack)
 
         if outcome == -1:
